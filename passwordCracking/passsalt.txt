@@ -1,0 +1,6 @@
+admin:password
+admin:Password1234
+admin:admin
+root:toor
+root:GHpzDyyNFUBeU
+admin:root
