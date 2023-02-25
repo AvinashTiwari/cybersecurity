@@ -23,6 +23,8 @@ def main():
 			spoof_arp("192.168.0.15","192.168.0.1")
 
 	except KeyboardInterrupt:
+		restore("192.168.0.1", "192.168.0.15")
+		restore("192.168.0.15", "192.168.0.1")
 		exit(0)
 
 
