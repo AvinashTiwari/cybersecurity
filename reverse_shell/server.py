@@ -5,7 +5,7 @@ from termcolor import colored
 import json
 def relibale_send(data):
         json_data = json.dumps(data)
-        target.send(json_data)
+        target.send(bytes(json_data, 'utf-8'))
 
 def reliable_recv():
         data = ""
@@ -25,7 +25,7 @@ def shell():
 		if command =='q':
 			break
 		else:
-			result = relibale_recv()
+			result = reliable_recv()
 			print(result)
 
 

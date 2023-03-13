@@ -4,8 +4,8 @@ import socket
 import subprocess
 import json
 def relibale_send(data):
-	json_data = json.dumps(data)
-	sock.send(json_data)
+	json_data = json.dumps(data.decode('utf-8'))
+	sock.send(bytes(json_data, 'utf-8'))
 
 def reliable_recv():
 	data = ""
