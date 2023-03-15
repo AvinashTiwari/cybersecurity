@@ -21,7 +21,9 @@ def reliable_recv():
 def shell():
 	while True:
 		command = input("* Shell#-%s: " % str(ip))
+		print("Commansd came %s " % str(command))
 		relibale_send(command)
+		print("Command came %s " % str(command)) 
 		if command =='q':
 			break
 		else:
