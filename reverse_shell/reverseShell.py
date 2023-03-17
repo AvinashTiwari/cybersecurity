@@ -7,8 +7,12 @@ import os
 
 
 def relibale_send(data):
-	json_data = json.dumps(data.decode('utf-8'))
-	sock.send(bytes(json_data, 'utf-8'))
+	try:
+		json_data = json.dumps(data.decode('utf-8'))
+		sock.send(bytes(json_data, 'utf-8'))
+	except Exception as e:
+		print("Exception hile sending message")
+		print(e)
 
 def reliable_recv():
 	data = ""
