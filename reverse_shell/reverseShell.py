@@ -9,7 +9,7 @@ import base64
 def relibale_send(data):
 	try:
 		json_data = json.dumps(data.decode('utf-8'))
-		sock.send(bytes(json_data, 'utf-8'))
+		sock.send(bytes(json_data.encode('utf-8')))
 	except Exception as e:
 		print("Exception hile sending message")
 		print(e)
