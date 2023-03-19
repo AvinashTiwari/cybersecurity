@@ -32,6 +32,7 @@
   ('select', 'c:\\Python27\\DLLs\\select.pyd', 'EXTENSION'),
   ('_ssl', 'c:\\Python27\\DLLs\\_ssl.pyd', 'EXTENSION'),
   ('_socket', 'c:\\Python27\\DLLs\\_socket.pyd', 'EXTENSION'),
+  ('Include\\pyconfig.h', 'c:\\Python27\\Include\\pyconfig.h', 'DATA'),
   ('reverseShell.exe.manifest',
    'Z:\\home\\avinash\\CyberSecurity\\reverse_shell\\build\\reverseShell\\reverseShell.exe.manifest',
    'BINARY'),

