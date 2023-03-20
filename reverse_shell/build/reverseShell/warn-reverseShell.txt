@@ -15,6 +15,7 @@ IMPORTANT: Do NOT post this list to the issue-tracker. Use it as a basis for
            yourself tracking down the missing module. Thanks!
 
 missing module named 'org.python' - imported by copy (optional)
+missing module named requests - imported by Z:\home\avinash\CyberSecurity\reverse_shell\reverseShell.py (top-level)
 missing module named _sysconfigdata - imported by distutils.sysconfig (delayed)
 missing module named fcntl - imported by tempfile (optional), subprocess (conditional)
 missing module named grp - imported by shutil (optional), tarfile (optional)
