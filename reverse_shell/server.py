@@ -4,6 +4,7 @@ import socket
 from termcolor import colored
 import json
 import base64
+count = 1
 def relibale_send(data):
         json_data = json.dumps(data)
         target.send(bytes(json_data, 'utf-8'))
