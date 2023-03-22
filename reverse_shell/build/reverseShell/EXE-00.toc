@@ -36,6 +36,8 @@
   ('bz2', 'c:\\Python27\\DLLs\\bz2.pyd', 'EXTENSION'),
   ('_ssl', 'c:\\Python27\\DLLs\\_ssl.pyd', 'EXTENSION'),
   ('_hashlib', 'c:\\Python27\\DLLs\\_hashlib.pyd', 'EXTENSION'),
+  ('_ctypes', 'c:\\Python27\\DLLs\\_ctypes.pyd', 'EXTENSION'),
+  ('pyexpat', 'c:\\Python27\\DLLs\\pyexpat.pyd', 'EXTENSION'),
   ('select', 'c:\\Python27\\DLLs\\select.pyd', 'EXTENSION'),
   ('_socket', 'c:\\Python27\\DLLs\\_socket.pyd', 'EXTENSION'),
   ('certifi\\cacert.pem',
@@ -49,7 +51,7 @@
  [],
  False,
  False,
- 1679366104L,
+ 1679451444L,
  [('run.exe',
    'c:\\Python27\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-32bit\\run.exe',
    'EXECUTABLE')])
