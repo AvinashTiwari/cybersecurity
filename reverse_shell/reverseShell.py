@@ -63,6 +63,8 @@ def shell():
 		command = reliable_recv()
 		if command == 'q':
 			break
+		if command  == "exit":
+			break
 		elif command[:] == "help":
 			help_options ="Command used download , upload , get, screenshot, start, check"  
 			relibale_send(help_options.encode('utf-8'))
