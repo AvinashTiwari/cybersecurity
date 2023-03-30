@@ -132,5 +132,7 @@ while True:
             shell(tarnum, tarip)
         except:
             print("[!!] No session Under The Number.")
+    else :
+        print("[!!] Command Does not exit")
 
         
