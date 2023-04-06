@@ -7,6 +7,9 @@ import time
 import getopt
 from requests.auth import HTTPDigestAuth
 
+global hit
+hit = "1"
+
 def banner():
     print('******** Base or Digest Brute Force**********')
 
@@ -30,3 +33,34 @@ def start(argv):
             dictionary = arg
         elif opt == '-t':
             threads = arg
+        elif opt == '-m':
+            method = arg
+    
+    try:
+        f = open(dictionary, 'r')
+        passwords = f.readlines()
+    except:
+        print("error ocuured while reading file")
+        sys.exit()
+
+    laucher_thread (passwords ,threads, user, url, method)
+
+def laucher_thread(passwords, threads, user, url, method):
+    global i
+    i =[]
+    i.append(0)
+    while len(passwords):
+        if hit == "1":
+            try:
+                if i[0] < threads:
+                    passwd = passwords.pop(0)
+                    i[0] = i[0] +1
+                    thread = request_performer(passwords, user,url, method)
+                    thread.start()
+            except KeyboardInterrupt:
+                print("KeyboardInterrupt")
+                sys.exit(1)
+            thread.join()
+                    
+
+
