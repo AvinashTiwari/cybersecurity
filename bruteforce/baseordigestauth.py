@@ -13,10 +13,20 @@ hit = "1"
 def banner():
     print('******** Base or Digest Brute Force**********')
 
+def usage():
+    print("Usgae :")
+    print("   -w: url(Http://site.com")
+    print("   -u: Username")
+    print("   -t: number of Thread")
+    print("   -f: dict file")
+    print("   -m: method (basic or digest")
+    print("Example baseordigestauth.py -w htt[://] -u admin -t 5 -f password.txt")
+
+
 class request_performer(Thread):
     def __int__(self,passwords, user,url, method):
         Thread.__int__(self)
-        self.password = passwords.split("\n")[0]
+        self.password = passwords.split('\n')[0]
         self.username = user
         self.url = url
         self.method = method
@@ -43,7 +53,7 @@ class request_performer(Thread):
 def start(argv):
     banner()
     if len(sys.argv) < 5:
-        ##usage()
+        usage()
         sys.exit()
     try:
         opts, args = getopt.getopt(argv, "u:w:f:m:t")
@@ -90,4 +100,8 @@ def laucher_thread(passwords, threads, user, url, method):
             thread.join()
                     
 
-
+if __name__ == "__main__":
+    try:
+        start(sys.argv[1:])
+    except KeyboardInterrupt:
+        print("KeyboardInterrupt")
